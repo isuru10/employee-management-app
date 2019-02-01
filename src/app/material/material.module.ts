@@ -13,7 +13,8 @@ import * as Material from '@angular/material';
     Material.MatSelectModule,
     Material.MatDatepickerModule,
     Material.MatNativeDateModule,
-    Material.MatButtonModule
+    Material.MatButtonModule,
+    Material.MatTableModule
   ],
   exports: [
     Material.MatToolbarModule,
@@ -23,7 +24,8 @@ import * as Material from '@angular/material';
     Material.MatSelectModule,
     Material.MatDatepickerModule,
     Material.MatNativeDateModule,
-    Material.MatButtonModule
+    Material.MatButtonModule,
+    Material.MatTableModule
   ]
 })
 export class MaterialModule { }
