@@ -1,0 +1,41 @@
+<form [formGroup]=employeeService.form (submit)="onSubmit()">
+  <mat-grid-list cols="3" rowHeight="500px">
+    <mat-grid-tile></mat-grid-tile>
+    <mat-grid-tile>
+      <div class="form-container">
+        <input type="hidden" formControlName="$key">
+
+        <mat-form-field>
+          <input formControlName="name" matInput placeholder="Name" class="form-field">
+          <mat-error>Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="email" matInput placeholder="Email" class="form-field">
+          <mat-error *ngIf="employeeService.form.controls['email'].errors?.required">Email is required</mat-error>
+          <mat-error *ngIf="employeeService.form.controls['email'].errors?.email">Enter a valid email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="dob" [matDatepicker]="picker" matInput placeholder="Date of Birth" class="form-field" readonly>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select formControlName="skills" placeholder="Skills" multiple>
+            <ng-container *ngFor="let skill of skills">
+              <mat-option value="{{skill.description}}">{{skill.description}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="button-row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="employeeService.form.invalid">Save</button>
+          <button mat-raised-button color="warn" type="button" (click)="onClear()">Clear</button>
+        </div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile></mat-grid-tile>
+  </mat-grid-list>
+</form>
