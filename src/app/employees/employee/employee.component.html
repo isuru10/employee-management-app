@@ -1,9 +1,8 @@
 <form [formGroup]=employeeService.form (submit)="onSubmit()">
-  <mat-grid-list cols="3" rowHeight="500px">
-    <mat-grid-tile></mat-grid-tile>
+  <mat-grid-list cols="1" rowHeight="500px">
     <mat-grid-tile>
       <div class="form-container">
-        <input type="hidden" formControlName="$key">
+        <input type="hidden" formControlName="id">
 
         <mat-form-field>
           <input formControlName="name" matInput placeholder="Name" class="form-field">
@@ -17,7 +16,7 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input formControlName="dob" [matDatepicker]="picker" matInput placeholder="Date of Birth" class="form-field" readonly>
+          <input formControlName="dob" [matDatepicker]="picker" matInput placeholder="Date of Birth" class="form-field">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -25,7 +24,7 @@
         <mat-form-field>
           <mat-select formControlName="skills" placeholder="Skills" multiple>
             <ng-container *ngFor="let skill of skills">
-              <mat-option value="{{skill.description}}">{{skill.description}}</mat-option>
+              <mat-option [value]="skill.description">{{skill.description}}</mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>
@@ -36,6 +35,5 @@
         </div>
       </div>
     </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
   </mat-grid-list>
 </form>

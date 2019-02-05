@@ -9,20 +9,25 @@ export class EmployeeService {
   constructor() { }
 
   form: FormGroup = new FormGroup({
-    $key: new FormControl(null),
+    id: new FormControl(null),
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.email, Validators.required]),
     dob: new FormControl(''),
-    skills: new FormControl(0)
+    skills: new FormControl(null)
   });
 
   initializeFormGroup() {
     this.form.setValue({
-      $key: null,
+      id: null,
       name: '',
       email: '',
       dob: '',
       skills: 0
     });
+  }
+
+  populateForm(row: any) {
+    console.log(row);
+    this.form.setValue(row);
   }
 }
