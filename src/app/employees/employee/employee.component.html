@@ -22,9 +22,9 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-select formControlName="skills" placeholder="Skills" multiple>
+          <mat-select formControlName="skills" placeholder="Skills" multiple >
             <ng-container *ngFor="let skill of skills">
-              <mat-option [value]="skill.description">{{skill.description}}</mat-option>
+              <mat-option [value]="skill.description" >{{skill.description}}</mat-option>
             </ng-container>
           </mat-select>
         </mat-form-field>
