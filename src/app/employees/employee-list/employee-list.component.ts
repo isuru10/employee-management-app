@@ -4,6 +4,7 @@ import {ApiService} from '../../shared/api.service';
 import {MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
 import {EmployeeComponent} from '../employee/employee.component';
 import {EmployeeService} from '../../shared/employee.service';
+import { NotificationService} from '../../shared/notification.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -19,7 +20,8 @@ export class EmployeeListComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private apiService: ApiService, private employeeService: EmployeeService, private dialog: MatDialog) { }
+  constructor(private apiService: ApiService,
+              private employeeService: EmployeeService, private dialog: MatDialog, private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.getAllEmployees();
@@ -29,7 +31,7 @@ export class EmployeeListComponent implements OnInit {
     this.apiService.getAllEmployees().subscribe(
       res => {
         this.employees = res;
-        this.listData = new MatTableDataSource<any>(res);
+        this.listData = new MatTableDataSource<any>(this.employees);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
       },
@@ -54,7 +56,14 @@ export class EmployeeListComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    this.dialog.open(EmployeeComponent, dialogConfig);
+    this.dialog.open(EmployeeComponent, dialogConfig).afterClosed().subscribe(
+      res => {
+        this.getAllEmployees();
+      },
+      err => {
+        alert('Error while after close');
+      }
+    );
   }
 
   onEdit(row: any) {
@@ -63,6 +72,27 @@ export class EmployeeListComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    this.dialog.open(EmployeeComponent, dialogConfig);
+    this.dialog.open(EmployeeComponent, dialogConfig).afterClosed().subscribe(
+      res => {
+        this.getAllEmployees();
+      },
+      err => {
+        alert('Error while after close');
+      }
+    );
+  }
+
+  onDelete(id: any) {
+    if (confirm('Are you sure you want to delete this employee?')) {
+      this.apiService.deleteEmployee(id).subscribe(
+        res => {
+          this.notificationService.success('Employee Deleted Successfully!');
+          this.getAllEmployees();
+        },
+        err => {
+          alert('Error!');
+        }
+      );
+    }
   }
 }

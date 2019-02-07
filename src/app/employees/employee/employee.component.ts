@@ -4,6 +4,7 @@ import {ApiService} from '../../shared/api.service';
 import {Skill} from '../model/skill';
 import {Employee} from '../model/employee';
 import {MatDialogRef} from '@angular/material';
+import {NotificationService} from '../../shared/notification.service';
 
 @Component({
   selector: 'app-employee',
@@ -14,7 +15,8 @@ export class EmployeeComponent implements OnInit {
   skills: Skill[] = [];
 
   constructor(private employeeService: EmployeeService,
-              private apiService: ApiService, public dialogRef: MatDialogRef<EmployeeComponent>) { }
+              private apiService: ApiService,
+              public dialogRef: MatDialogRef<EmployeeComponent>, public notificationService: NotificationService) { }
 
   ngOnInit() {
     this.getAllSkills();
@@ -39,16 +41,15 @@ export class EmployeeComponent implements OnInit {
 
   onSubmit() {
     const value = this.employeeService.form.value;
-    const employee = new Employee(value.$key, value.name, value.email, value.dob, value.skills);
+    const employee = new Employee(value.id, value.name, value.email, value.dob, value.skills);
     this.apiService.saveEmployee(employee).subscribe(
       res => {
-        this.employeeService.form.reset();
-        this.employeeService.initializeFormGroup();
         this.onClose();
+        this.notificationService.success('Employee saved successfully!');
         console.log(res);
       },
       err => {
-        console.log(err);
+        alert(err['message']);
       }
     );
   }

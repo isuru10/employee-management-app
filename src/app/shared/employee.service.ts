@@ -5,7 +5,6 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
   providedIn: 'root'
 })
 export class EmployeeService {
-  selectedSkills: string[] = ['Java'];
 
   constructor() { }
 
@@ -28,9 +27,11 @@ export class EmployeeService {
   }
 
   populateForm(row: any) {
-    this.form.setValue({id: row['id'], name: row['name'], email: row['email'], dob: new Date(row['dob']), skills: row['skills']});
-  }
-  setSelectedSkills(skills: string[]) {
-    this.selectedSkills = skills;
+    const skills: string [] = [];
+    row.skills.forEach(function (skill) {
+      skills.push(skill['description']);
+    });
+    this.form.setValue({id: row['id'], name: row['name'],
+      email: row['email'], dob: new Date(row['dob']), skills: skills});
   }
 }
