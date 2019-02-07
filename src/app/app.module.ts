@@ -18,7 +18,14 @@ import { SkillListComponent } from './skills/skill-list/skill-list.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import {RouterModule, Routes} from '@angular/router';
 
+
+const appRoutes: Routes = [
+  {path: '', component: EmployeesComponent},
+  {path: 'employees', component: EmployeesComponent},
+  {path: 'skills', component: SkillsComponent},
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +50,8 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [EmployeeService, SkillService],
   bootstrap: [AppComponent],

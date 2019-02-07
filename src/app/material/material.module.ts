@@ -20,7 +20,9 @@ import * as Material from '@angular/material';
     Material.MatSortModule,
     Material.MatDialogModule,
     Material.MatSnackBarModule,
-    Material.MatMenuModule
+    Material.MatMenuModule,
+    Material.MatChipsModule,
+    Material.MatAutocompleteModule
   ],
   exports: [
     Material.MatToolbarModule,
@@ -37,7 +39,9 @@ import * as Material from '@angular/material';
     Material.MatSortModule,
     Material.MatDialogModule,
     Material.MatSnackBarModule,
-    Material.MatMenuModule
+    Material.MatMenuModule,
+    Material.MatChipsModule,
+    Material.MatAutocompleteModule
   ]
 })
 export class MaterialModule { }

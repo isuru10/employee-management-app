@@ -27,11 +27,35 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-select formControlName="skills" placeholder="Skills" multiple >
-            <ng-container *ngFor="let skill of skills">
-              <mat-option [value]="skill.description" >{{skill.description}}</mat-option>
-            </ng-container>
-          </mat-select>
+          <mat-chip-list #chipList>
+            <mat-chip
+            *ngFor="let skill of selectedSkills"
+            selectable = true
+            removable = true
+            (removed)="remove(skill)"
+            >
+              {{skill}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input
+              placeholder="Skills"
+              matInput
+              #skillInput
+              [formControl]="skillsCtrl"
+              formControlName="skills"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              matChipInputAddOnBlur = true
+            >
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
+              {{skill}}
+            </mat-option>
+          </mat-autocomplete>
+
+
         </mat-form-field>
 
         <div class="button-row">

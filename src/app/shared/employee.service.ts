@@ -22,14 +22,14 @@ export class EmployeeService {
       name: '',
       email: '',
       dob: '',
-      skills: 0
+      skills: []
     });
   }
 
   populateForm(row: any) {
-    const skills: string [] = [];
-    row.skills.forEach(function (skill) {
-      skills.push(skill['description']);
+    const skills: string[] = [];
+    row.skills.forEach(skill => {
+      skills.push(skill.description);
     });
     this.form.setValue({id: row['id'], name: row['name'],
       email: row['email'], dob: new Date(row['dob']), skills: skills});

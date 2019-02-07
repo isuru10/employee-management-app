@@ -24,11 +24,22 @@
 
     <ng-container matColumnDef="skills">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Skills</mat-header-cell>
-      <mat-cell *matCellDef="let element"><span *ngFor="let skill of element.skills">{{skill.description + ', '}}</span></mat-cell>
+      <mat-cell *matCellDef="let element">
+        <!--<span *ngFor="let skill of element.skills">{{skill.description + ', '}}</span>-->
+        <mat-chip-list>
+          <mat-chip
+            *ngFor="let skill of element.skills"
+            selectable = true
+            removable = false
+          >
+            {{skill.description}}
+          </mat-chip>
+        </mat-chip-list>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row">
         <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
         <button mat-icon-button (click)="onDelete(row.id)"><mat-icon color="warn">delete_outline</mat-icon></button>
@@ -36,6 +47,7 @@
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showfirstlastbuttons></mat-paginator>
 </div>
