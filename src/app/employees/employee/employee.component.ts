@@ -67,6 +67,7 @@ export class EmployeeComponent implements OnInit {
   onSubmit() {
     this.skillsCtrl.setValue(this.selectedSkills);
     const value = this.employeeService.form.value;
+    console.log(value.skills);
     const employee = new Employee(value.id, value.name, value.email, value.dob, value.skills);
     this.apiService.saveEmployee(employee).subscribe(
       res => {
@@ -91,26 +92,26 @@ export class EmployeeComponent implements OnInit {
     this.skills.push(skill);
   }
 
-  // add(event: MatChipInputEvent): void {
-  //   // Add fruit only when MatAutocomplete is not open
-  //   // To make sure this does not conflict with OptionSelected Event
-  //   if (!this.matAutocomplete.isOpen) {
-  //     const input = event.input;
-  //     const value = event.value;
-  //
-  //     // Add our fruit
-  //     if ((value || '').trim()) {
-  //       this.selectedSkills.push(value.trim());
-  //     }
-  //
-  //     // Reset the input value
-  //     if (input) {
-  //       input.value = '';
-  //     }
-  //
-  //     this.skillsCtrl.setValue(null);
-  //   }
-  // }
+  add(event: MatChipInputEvent): void {
+    // Add fruit only when MatAutocomplete is not open
+    // To make sure this does not conflict with OptionSelected Event
+    if (!this.matAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
+
+      // // Add our fruit
+      // if ((value || '').trim()) {
+      //   this.selectedSkills.push(value.trim());
+      // }
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+
+      this.skillsCtrl.setValue(null);
+    }
+  }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     const index = this.skills.indexOf(event.option.viewValue);

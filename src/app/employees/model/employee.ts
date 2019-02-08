@@ -7,7 +7,8 @@ export class Employee {
   dob: string;
   skills: Skill[];
 
-  constructor(id: number, name: string, email: string, dob: string, skills: Skill[]) {this.id = id;
+  constructor(id: number, name: string, email: string, dob: string, skills: Skill[]) {
+    this.id = id;
     this.name = name;
     this.email = email;
     this.dob = dob;
